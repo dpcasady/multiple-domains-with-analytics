@@ -1,10 +1,12 @@
 === Multiple Domains with Analytics ===
 
-Contributors:      Danny Casady
+Contributors:      dpcasady
 Tags:              domains, multiple, mirror, multiple domains, multiple analytics, multiple domains with analytics, multiple google analytics
 Requires at least: 2.8 
 Tested up to:      3.4.1
 Stable tag:        1.1
+License:		   GPLv2 or later
+License URI:	   http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
