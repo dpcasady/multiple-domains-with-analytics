@@ -1,0 +1,27 @@
+table.optiontable th {
+	text-align: left;
+	font-weight: normal;
+	width: 200px;
+}
+#normal-sortables .postbox .submit {
+	float: left;
+	padding-left: 0;
+}
+.note {
+	color:#666666;
+	margin-left:2px;
+	font-style: italic;
+}
+.table-head {
+	vertical-align: top;
+	text-align: left;
+}
+.cmt-options td.pad {
+	padding-bottom:20px;
+}
+.ga.invisible {
+	display:none;
+}
+.ignore.invisible {
+	display:none;
+}
