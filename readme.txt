@@ -12,6 +12,14 @@ License URI:	   http://www.gnu.org/licenses/gpl-2.0.html
 
 The Multiple Domains with Analytics plugin allows Wordpress to be mirrored across multiple domain names. This requires your DNS settings to be configured so that all of your domain names point to the same location. While configuring DNS settings in this way will point all visitors to the same site regardless of domain name, any interaction on the page (clicking an internal link) will revert back to the base domain name that exists in the Wordpress general options. This plugin allows whichever domain name that was initially used by the visitor to stay constant as well as display a unique Name and Tagline for the duration of their visit. In addition, this plugin can include separate Google Analytics codes for each domain to track the traffic to each domain.
 
+Full list of features:
+
+* Unlimited number of mirrored domains.
+* Customization for Site Title, Tagline, Analytics Code and URL for each domain.
+* Can be used with or without another Google Analytics plugin, it's your choice.
+* If enabled, this plugin uses the asynchronous Google Analytics tracking code, the fastest and most reliable tracking code Google Analytics offers.
+* Option to ignore logged in users when Google Analytics is enabled.
+
 == Installation ==
 
 This section describes how to install the plugin and get it working.
