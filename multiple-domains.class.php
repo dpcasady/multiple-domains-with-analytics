@@ -1,6 +1,6 @@
 <?php
 /*
-	CmtMultipleDomains Class
+CmtMultipleDomains Class
 */
 
 
@@ -38,11 +38,11 @@ if (!class_exists("CmtMultipleDomains")) {
 			}
 
 			$current_server = $_SERVER['SERVER_NAME'];
-			$ua_string = 'UA-947045-28';
+			$ua_string = '';
 			$count = 1;
 			foreach ($domain_options as $key => $value) {
 				if ( substr($key, 0, 7) == 'domain_' ) {
-					if ( strcasecmp($current_server, $value) == 0 || strcasecmp($current_server, 'www.'.$value) == 0) {					
+					if ( strcasecmp($current_server, $value) == 0 || strcasecmp($current_server, 'www.' . $value) == 0) {					
 						$ua_string = $domain_options['analytics_' . $count];
 					}
 					$count++;
@@ -65,7 +65,7 @@ if (!class_exists("CmtMultipleDomains")) {
 
 
 		private function plugin_options_url() {
-			return admin_url( 'options-general.php?page='.CMT_MULTIPLE_DOMAINS_NAME );
+			return admin_url( 'options-general.php?page=' . CMT_MULTIPLE_DOMAINS_NAME );
 		}
 	
 	
@@ -87,8 +87,8 @@ if (!class_exists("CmtMultipleDomains")) {
 			$current_server = $_SERVER['SERVER_NAME'];
 			$options = $this->get_admin_options();
 			for ($count = 1; $count <= $options['count']; $count++) {		
-				if ( strcasecmp($current_server,$options['domain_'.$count]) == 0 || strcasecmp($current_server, 'www.'.$options['domain_'.$count]) == 0) {
-					return ( $options['blogname_'.$count] );
+				if ( strcasecmp($current_server,$options['domain_' . $count]) == 0 || strcasecmp($current_server, 'www.' . $options['domain_' . $count]) == 0) {
+					return ( $options['blogname_' . $count] );
 				}
 		   }
 		   return $content;
@@ -99,8 +99,8 @@ if (!class_exists("CmtMultipleDomains")) {
 			$current_server = $_SERVER['SERVER_NAME'];
 			$options = $this->get_admin_options();
 			for ($count = 1; $count <= $options['count']; $count++) {
-				if ( strcasecmp($current_server,$options['domain_'.$count]) == 0 || strcasecmp($current_server, 'www.'.$options['domain_'.$count]) == 0) {
-					return ( $options['siteurl_'.$count] );
+				if ( strcasecmp($current_server,$options['domain_' . $count]) == 0 || strcasecmp($current_server, 'www.' . $options['domain_' . $count]) == 0) {
+					return ( $options['siteurl_' . $count] );
 				}
 		   }
 		   return $content;
@@ -111,8 +111,8 @@ if (!class_exists("CmtMultipleDomains")) {
 			$current_server = $_SERVER['SERVER_NAME'];
 			$options = $this->get_admin_options();
 			for ($count = 1; $count <= $options['count']; $count++) {
-				if ( strcasecmp($current_server,$options['domain_'.$count]) == 0 || strcasecmp($current_server, 'www.'.$options['domain_'.$count]) == 0) {
-					return ( $options['home_'.$count] ); 
+				if ( strcasecmp($current_server,$options['domain_' . $count]) == 0 || strcasecmp($current_server, 'www.' . $options['domain_' . $count]) == 0) {
+					return ( $options['home_' . $count] ); 
 				}
 		   }
 		   return $content;
@@ -123,8 +123,8 @@ if (!class_exists("CmtMultipleDomains")) {
 			$current_server = $_SERVER['SERVER_NAME'];
 			$options = $this->get_admin_options();
 			for ($count = 1; $count <= $options['count']; $count++) {
-				if ( strcasecmp($current_server,$options['domain_'.$count]) == 0 || strcasecmp($current_server, 'www.'.$options['domain_'.$count]) == 0) {
-					return ( $options['blogdescription_'.$count] ); 
+				if ( strcasecmp($current_server,$options['domain_' . $count]) == 0 || strcasecmp($current_server, 'www.' . $options['domain_' . $count]) == 0) {
+					return ( $options['blogdescription_' . $count] ); 
 				}
 		   }
 		   return $content;
@@ -135,7 +135,7 @@ if (!class_exists("CmtMultipleDomains")) {
 			wp_register_style('cmt-style', CMT_PLUGIN_URL . 'css/multiple-domains.css');
 			wp_register_script('cmt-script', CMT_PLUGIN_URL . '/js/multiple-domains.js', 'jquery');
 			$this->pagehook = add_options_page('Multiple Domains with Analytics Options', 'Multiple Domains with Analytics', $this->access_level, CMT_MULTIPLE_DOMAINS_NAME, array($this, 'on_show_page'));
-			add_action('load-'.$this->pagehook, array($this, 'on_load_page'));	
+			add_action('load-' . $this->pagehook, array($this, 'on_load_page'));	
 		}
 
 			
@@ -147,10 +147,12 @@ if (!class_exists("CmtMultipleDomains")) {
 			wp_enqueue_style('cmt-style');
 		
 			$options = array();
-			$options = $this->get_admin_options();	
+			$options = $this->get_admin_options();
+
+			add_meta_box('general-options', 'Google Analytics Options', array($this, 'print_meta_box_options'), $this->pagehook, 'advanced', 'core', $count);
 
 			for ($count = 1; $count <= $options['count']; $count++) {
-				add_meta_box('domain-'.$count, 'Domain #'.$count.' ('.$options["domain_".$count].')', array($this, 'print_meta_box_contents'), $this->pagehook, 'normal', 'core', $count);
+				add_meta_box('domain-' . $count, 'Domain #' . $count . ' (' . $options["domain_" . $count] . ')', array($this, 'print_meta_box_contents'), $this->pagehook, 'normal', 'core', $count);
 			}
 		}
 
@@ -162,7 +164,8 @@ if (!class_exists("CmtMultipleDomains")) {
 			require_once CMT_PLUGIN_PATH . 'config.php';
 			$options = maybe_unserialize(get_option('cmt_dm_options'));
 
-			// set up defaults
+			/* Set up defaults */
+
 			if ($options == '') {  // There are no options set
 				add_option('cmt_dm_options', serialize($default_options));
 				$options = $default_options;
@@ -172,7 +175,8 @@ if (!class_exists("CmtMultipleDomains")) {
 				$options = $default_options;
 			}
 					
-			// Count the domains and extract the fields we're interested in
+			/* Count the domains and extract the fields we're interested in */
+
 			$count = 0;
 						
 			foreach ($options as $key => $value) {
@@ -221,7 +225,7 @@ if (!class_exists("CmtMultipleDomains")) {
 				$options = $this->get_admin_options();
 			?>
 
-			<div id ="multiple-domains" class="wrap">
+			<div id="multiple-domains" class="wrap">
 				<?php screen_icon('options-general'); ?>
 		    	<h2>Multiple Domains with Analytics</h2>
 				<p>Current domain: <b><?php _e($_SERVER['SERVER_NAME']);?></b></p>
@@ -231,48 +235,17 @@ if (!class_exists("CmtMultipleDomains")) {
 			     	<?php wp_nonce_field('meta-box-order', 'meta-box-order-nonce', false ); ?>
 					<input type="hidden" name="action" value="save_multiple_domains" />
 					<hr>
-					<p style="width:75%">
+					<p>
 						This plugin allows multiple domain names to be used for the same wordpress installation.
 						To make sure that it works correctly, all domains must be configured with the proper DNS settings prior to use.
 					<p>
 				
-					<div id="poststuff" class="metabox-holder" style="width:80%">
+					<div id="poststuff" class="metabox-holder">
 						<div id="post-body">
 							<div id="post-body-content">
-								<table class="cmt-options">
-									<tr valign="top">
-										<th width="200px" class="table-head" scope="row">Google Analytics</th>
-										<td class="pad">
-											<label>
-												<input type="hidden" id="cmt_g_analytics_enabled" name="cmt_g_analytics_enabled" value="false" />	
-												<input type="checkbox" id="cmt_g_analytics_enabled" name="cmt_g_analytics_enabled" value="true" <?php if (isset($options['g_analytics_enabled'])) { checked('true', $options['g_analytics_enabled']); } ?> />
-												Enabled
-											</label>
-											<br />
-											<span class="note">Only check this if you want to use separate analytics codes for each domain. Please deactivate any existing analytics plugins and/or theme options before activating this option.</span>
-										</td>
-									</tr>
-									<tr valign="top" class="ignore<?php if ( isset($options['g_analytics_enabled']) && $options['g_analytics_enabled'] == 'true') { echo ' visible';} else { echo ' invisible';} ?>">
-										<th width="200px" class="table-head" scope="row">Ignore Logged in Users</th>
-										<td class="pad">
-											<label>
-												<input type="hidden" id="cmt_ignore_logged_in" name="cmt_ignore_logged_in" value="false" />	
-												<input type="checkbox" id="cmt_ignore_logged_in" name="cmt_ignore_logged_in" value="true" <?php if (isset($options['ignore_logged_in'])) { checked('true', $options['ignore_logged_in']); } ?> />
-												Enabled
-											</label>
-											<br />
-											<span class="note">Allows you to easily remove Google Analytics tracking for logged in users.</span>
-										</td>
-									</tr>
-									<tr>
-										<th class="table-head">Domains</th>
-										<td>
-											<?php do_meta_boxes($this->pagehook, 'normal', $options); ?>
-										</td>
-									</tr>
-								</table>
+								<?php do_meta_boxes($this->pagehook, 'advanced', $options); ?>
+								<?php do_meta_boxes($this->pagehook, 'normal', $options); ?>
 								<br />
-							
 								<span class="submit">
 									<input type="submit" name="cmt_action" value="Add New Domain" /> 
 								</span>        
@@ -281,9 +254,9 @@ if (!class_exists("CmtMultipleDomains")) {
 								</span>
 							</div>
 						</div>
-					</div><!-- holder -->
+					</div>
 				</form>
-			</div><!-- wrap -->
+			</div>
 			<script type="text/javascript">
 				//<![CDATA[
 				jQuery(document).ready( function($) {
@@ -300,7 +273,8 @@ if (!class_exists("CmtMultipleDomains")) {
 				wp_die( __('Cheatin&#8217; uh?') );			
 			check_admin_referer('multiple-domains');
 		
-			// Process option saving
+			/* Process option saving */
+
 			if ( isset($_POST["cmt_action"]) && $_POST["cmt_action"] == "Save All Changes" ) {
 				$options = array();
 				$count = 0;
@@ -309,22 +283,22 @@ if (!class_exists("CmtMultipleDomains")) {
 				
 					if ( substr($k, 0, 11) == 'cmt_domain_' ) {
 						$count = $count + 1;
-						$options['domain_'.$count] = $v;
+						$options['domain_' . $count] = $v;
 					}
 					if ( substr($k, 0, 13) == 'cmt_blogname_' ) {
-						$options['blogname_'.$count] = $v;
+						$options['blogname_' . $count] = $v;
 					}
 					if ( substr($k, 0, 20) == 'cmt_blogdescription_' ) {
-						$options['blogdescription_'.$count] = $v;
+						$options['blogdescription_' . $count] = $v;
 					}
 					if ( substr ($k, 0, 12) == 'cmt_siteurl_' ) {
-						$options['siteurl_'.$count] = $v;
+						$options['siteurl_' . $count] = $v;
 					}
 					if ( substr ($k, 0, 9) == 'cmt_home_' ) {
-						$options['home_'.$count] = $v;
+						$options['home_' . $count] = $v;
 					}
 					if ( substr ($k, 0, 14) == 'cmt_analytics_' ) {					
-						$options['analytics_'.$count] = $v;
+						$options['analytics_' . $count] = $v;
 					}
 					if ( substr ($k, 0, 23) == 'cmt_g_analytics_enabled' ) {
 						$options['g_analytics_enabled'] = $v;
@@ -345,17 +319,18 @@ if (!class_exists("CmtMultipleDomains")) {
 				$options = array();
 				$options = $this->get_admin_options();
 		 		$options['count'] = $options['count'] + 1;
-		 		$options['domain_'.$options['count']] = '';
-				$options['blogname_'.$options['count']] = '';
-				$options['blogdescription_'.$options['count']] = '';
-				$options['siteurl_'.$options['count']] = 'http://';
-				$options['home_'.$options['count']] = 'http://';
-		 		$options['analytics_'.$options['count']] = '';
+		 		$options['domain_' . $options['count']] = '';
+				$options['blogname_' . $options['count']] = '';
+				$options['blogdescription_' . $options['count']] = '';
+				$options['siteurl_' . $options['count']] = 'http://';
+				$options['home_' . $options['count']] = 'http://';
+		 		$options['analytics_' . $options['count']] = '';
 
 				update_option('cmt_dm_options', serialize($options));
 			}
-		
-			// Redirect the post request into get request to use on refresh
+			
+			/* Redirect the post request into get request to use on refresh */
+
 			if ( isset($_POST["cmt_action"]) ) {
 				$key = "cmt_action";
 				if ( $_POST["cmt_action"] == "Save All Changes" ) {
@@ -371,29 +346,58 @@ if (!class_exists("CmtMultipleDomains")) {
 		}
 
 
+		public function print_meta_box_options($options) { ?>
+			<table>
+				<tr valign="top">
+					<td class="option-label">Google Analytics:</td>
+					<td class="pad">
+						<label>
+							<input type="hidden" id="cmt_g_analytics_enabled" name="cmt_g_analytics_enabled" value="false" />	
+							<input type="checkbox" id="cmt_g_analytics_enabled" name="cmt_g_analytics_enabled" value="true" <?php if (isset($options['g_analytics_enabled'])) { checked('true', $options['g_analytics_enabled']); } ?> />
+							Enabled
+						</label>
+						<br />
+						<span class="note">Only check this if you want to use separate analytics codes for each domain. Please deactivate any existing analytics plugins and/or theme options before activating this option.</span>
+					</td>
+				</tr>
+				<tr valign="top" class="ignore<?php if ( isset($options['g_analytics_enabled']) && $options['g_analytics_enabled'] == 'true' ) {echo ' visible';} else {echo ' invisible';} ?>">
+					<td class="option-label">Ignore Logged in Users:</td>
+					<td class="pad">
+						<label>
+							<input type="hidden" id="cmt_ignore_logged_in" name="cmt_ignore_logged_in" value="false" />	
+							<input type="checkbox" id="cmt_ignore_logged_in" name="cmt_ignore_logged_in" value="true" <?php if (isset($options['ignore_logged_in'])) { checked('true', $options['ignore_logged_in']); } ?> />
+							Enabled
+						</label>
+						<br />
+						<span class="note">Allows you to easily remove Google Analytics tracking for logged in users.</span>
+					</td>
+				</tr>
+			</table>
+		<?php }
+
+
 		public function print_meta_box_contents($options, $count) {
 			$count = $count['args']; ?>
 			<div class="domain">
 			<table class="optiontable">
 				<tr>
 					<th scope="row">Domain:</th>
-					<td>www.<input type="text" id="cmt_domain_<?php echo $count; ?>" class="domain" name="cmt_domain_<?php echo $count; ?>" value="<?php print $options['domain_'.$count]; ?>" size="46" /></td>
+					<td>www.<input type="text" id="cmt_domain_<?php echo $count; ?>" class="domain" name="cmt_domain_<?php echo $count; ?>" value="<?php print $options['domain_' . $count]; ?>" size="46" /></td>
 				</tr><tr>
 					<th scope="row">Weblog title:</th>
-					<td><input type="text" id="cmt_blogname_<?php echo $count; ?>" class="blogname" name="cmt_blogname_<?php echo $count; ?>" value="<?php print $options['blogname_'.$count]; ?>" size="50" /></td>
+					<td><input type="text" id="cmt_blogname_<?php echo $count; ?>" class="blogname" name="cmt_blogname_<?php echo $count; ?>" value="<?php print $options['blogname_' . $count]; ?>" size="50" /></td>
 				</tr><tr>
 					<th scope="row">Tagline:</th>
-					<td><input type="text" id="cmt_blogdescription_<?php echo $count; ?>" class="blogdescription" name="cmt_blogdescription_<?php echo $count; ?>" value="<?php print $options['blogdescription_'.$count]; ?>" size="50" /></td>
+					<td><input type="text" id="cmt_blogdescription_<?php echo $count; ?>" class="blogdescription" name="cmt_blogdescription_<?php echo $count; ?>" value="<?php print $options['blogdescription_' . $count]; ?>" size="50" /></td>
 				</tr><tr>
 					<th scope="row">Wordpress address (URL):</th>
-					<td><input type="text" id="cmt_siteurl_<?php echo $count; ?>" class="siteurl" name="cmt_siteurl_<?php echo $count; ?>" value="<?php print $options['siteurl_'.$count]; ?>" size="50" /></td>
+					<td><input type="text" id="cmt_siteurl_<?php echo $count; ?>" class="siteurl" name="cmt_siteurl_<?php echo $count; ?>" value="<?php print $options['siteurl_' . $count]; ?>" size="50" /></td>
 				</tr><tr>
 					<th scope="row">Blog address (URL):</th>
-					<td><input type="text" id="cmt_home_<?php echo $count; ?>" class="home" name="cmt_home_<?php echo $count; ?>" value="<?php print $options['home_'.$count]; ?>" size="50" /></td>
-				</tr>
-				<tr class="ga<?php if ( isset($options['g_analytics_enabled']) && $options['g_analytics_enabled'] == 'true' ) {echo ' visible';} else {echo ' invisible';} ?>">
+					<td><input type="text" id="cmt_home_<?php echo $count; ?>" class="home" name="cmt_home_<?php echo $count; ?>" value="<?php print $options['home_' . $count]; ?>" size="50" /></td>
+				</tr><tr class="ga<?php if ( isset($options['g_analytics_enabled']) && $options['g_analytics_enabled'] == 'true' ) {echo ' visible';} else {echo ' invisible';} ?>">
 					<th scope="row">Google Analytics Code:</th>
-					<td><input type="text" id="cmt_analytics_<?php echo $count; ?>" class="analytics" name="cmt_analytics_<?php echo $count; ?>" value="<?php print $options['analytics_'.$count]; ?>" size="50" /></td>
+					<td><input type="text" id="cmt_analytics_<?php echo $count; ?>" class="analytics" name="cmt_analytics_<?php echo $count; ?>" value="<?php print $options['analytics_' . $count]; ?>" size="50" /></td>
 				</tr>						
 			</table>
 			<br /><br />

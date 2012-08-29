@@ -4,7 +4,7 @@ Contributors:      dpcasady
 Tags:              domains, multiple, mirror, multiple domains, multiple analytics, multiple domains with analytics, multiple google analytics
 Requires at least: 2.8 
 Tested up to:      3.4.1
-Stable tag:        1.1
+Stable tag:        1.1.1
 License:		   GPLv2 or later
 License URI:	   http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,6 +30,10 @@ This section describes how to install the plugin and get it working.
 4. Go to the options panel under the 'Settings' menu and add your list of domains and optional Google Analytics codes.
 
 == Changelog ==
+
+= 1.1.1 =
+* Minor bug fixes.
+* Updated options page.
 
 = 1.1 =
 * First public release.

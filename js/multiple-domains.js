@@ -18,7 +18,6 @@ jQuery(document).ready( function($) {
 	$('#cmt_g_analytics_enabled').live('click', function() {
 		var checkbox = this,
 			analyticsClass = $('.ga');
-			console.log(checkbox),
 			ignoreClass = $(".ignore");
 		
 		if (checkbox.checked) {

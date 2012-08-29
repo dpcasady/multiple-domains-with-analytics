@@ -16,7 +16,7 @@ table.optiontable th {
 	vertical-align: top;
 	text-align: left;
 }
-.cmt-options td.pad {
+td.pad {
 	padding-bottom:20px;
 }
 .ga.invisible {
@@ -24,4 +24,11 @@ table.optiontable th {
 }
 .ignore.invisible {
 	display:none;
+}
+#multiple-domains {
+	width:74%;
+	padding-right:1%;
+}
+.option-label {
+	width:150px;
 }

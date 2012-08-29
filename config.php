@@ -1,9 +1,16 @@
 <?php
+/*
+Default db options
+*/
 
-/* Fill in the detail here if defaults are required on acivation */
+
+/* Default options for analytics */
 	
 	$default_options['g_analytics_enabled'] = 'false';		// Analytics Enabled
-	$default_options['ignore_logged_in'] = 'false';		// Ignore Logged In Users
+	$default_options['ignore_logged_in'] = 'false';			// Ignore Logged In Users
+
+/* Fill in the detail here if defaults are required on acivation */
+
 	$default_options['domain_1'] = '';						// Domain Name
 	$default_options['blogname_1'] = '';					// Weblog Title
 	$default_options['blogdescription_1'] = '';				// Tagline
@@ -19,20 +26,6 @@
 	$default_options['siteurl_2'] = 'http://';
 	$default_options['home_2'] = 'http://';
 */
-
-/*	$default_options['domain_3'] = '';
-	$default_options['blogname_3'] = '';
-	$default_options['blogdescription_3'] = '';
-	$default_options['siteurl_3'] = 'http://';
-	$default_options['home_3'] = 'http://';
-*/
-
-/*	$default_options['domain_4'] = '';
-	$default_options['blogname_4'] = '';
-	$default_options['blogdescription_4'] = '';
-	$default_options['siteurl_4'] = 'http://';
-	$default_options['home_4'] = 'http://';
-*/	
 
 /* Add addtional blocks if required */
 
