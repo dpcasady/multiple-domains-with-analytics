@@ -234,8 +234,6 @@ if (!class_exists("CmtMultipleDomains")) {
 					<p style="width:75%">
 						This plugin allows multiple domain names to be used for the same wordpress installation.
 						To make sure that it works correctly, all domains must be configured with the proper DNS settings prior to use.
-						If enabled, each unique Google Analytics ID is saved here but only implemented through the modified
-						<a href="options-general.php?page=google-analytics-for-wordpress">Google Analytics for Wordpress</a> plugin.
 					<p>
 				
 					<div id="poststuff" class="metabox-holder" style="width:80%">
