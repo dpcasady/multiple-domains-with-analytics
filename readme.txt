@@ -10,7 +10,7 @@ License URI:	   http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-The Multiple Domains with Analytics plugin allows Wordpress to be mirrored across multiple domain names. This requires your DNS settings to be configured so that all of your domain names point to the same location. While configuring DNS settings in this way will point all visitors to the same site regardless of domain name, any interaction on the page (clicking an internal link) will revert back to the base domain name that exists in the Wordpress general options. This plugin allows whichever domain name that was initially used by the visitor to stay constant as well as display a unique Name and Tagline for the duration of their visit. In addition, this plugin can include separate Google Analytics codes for each domain to track the traffic to each domain.
+The Multiple Domains with Analytics plugin allows Wordpress to be mirrored across multiple domain names. This requires your DNS settings to be configured ahead of time so that all of your domain names point to the same location. While configuring DNS settings in this way will point all visitors to the same site regardless of domain name, any interaction on the page (clicking an internal link) will revert back to the base domain name that exists in the Wordpress general options. This plugin allows the domain name that was initially used by the visitor to stay constant as well as display a customizeable Name and Tagline for the duration of their visit. In addition, this plugin can include separate Google Analytics codes to track the traffic to each domain.
 
 Full list of features:
 
@@ -27,7 +27,7 @@ This section describes how to install the plugin and get it working.
 1. Make sure that your DNS settings are configured correctly so that all of your domains are pointing to the same location.
 2. Upload `cmt-multiple-domains` folder to the `/wp-content/plugins/` directory.
 3. Activate the plugin through the 'Plugins' menu in WordPress.
-4. Go to the options panel under the 'Settings' menu and add your list of domains and optional analytics account numbers.
+4. Go to the options panel under the 'Settings' menu and add your list of domains and optional Google Analytics codes.
 
 == Changelog ==
 
