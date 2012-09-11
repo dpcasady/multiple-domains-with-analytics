@@ -8,7 +8,11 @@ License: GPL
 */
 
 
-define('CMT_PLUGIN_PATH', plugin_dir_path( __FILE__ ));
+define( 'CMT_MULTIPLE_DOMAINS_NAME', 'cmt_multi_domains' );
+define( 'CMT_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+define( 'CMT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'CMT_BASENAME', plugin_basename( __FILE__ ) );
+
 
 require_once CMT_PLUGIN_PATH . 'multiple-domains.class.php';
 
