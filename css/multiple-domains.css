@@ -1,34 +1,49 @@
 table.optiontable th {
-	text-align: left;
-	font-weight: normal;
-	width: 200px;
+    text-align: left;
+    font-weight: normal;
+    width: 200px;
 }
+
 #normal-sortables .postbox .submit {
-	float: left;
-	padding-left: 0;
+    float: left;
+    padding-left: 0;
 }
+
 .note {
-	color:#666666;
-	margin-left:2px;
-	font-style: italic;
+    color:#666666;
+    margin-left:2px;
+    font-style: italic;
 }
+
 .table-head {
-	vertical-align: top;
-	text-align: left;
+    vertical-align: top;
+    text-align: left;
 }
+
 td.pad {
-	padding-bottom:20px;
+    padding-bottom:20px;
 }
+
 .ga.invisible {
-	display:none;
+    display:none;
 }
+
 .ignore.invisible {
-	display:none;
+    display:none;
 }
+
 #multiple-domains {
-	width:74%;
-	padding-right:1%;
+    width:74%;
+    padding-right:1%;
 }
+
 .option-label {
-	width:150px;
+    width:150px;
+}
+
+.delete-domain {
+    color: #a00;
+    text-decoration: none;
+    padding: 4px 0;
+    display: inline-block;
 }

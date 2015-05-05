@@ -18,13 +18,13 @@ require_once CMT_PLUGIN_PATH . 'multiple-domains.class.php';
 
 
 if (class_exists("CmtMultipleDomains")) {
-	$cmt_multiple_domains_plugin = new CmtMultipleDomains();
-	$domain_options = array();
-	$domain_options = $cmt_multiple_domains_plugin->get_admin_options();
+    $cmt_multiple_domains_plugin = new CmtMultipleDomains();
+    $domain_options = array();
+    $domain_options = $cmt_multiple_domains_plugin->get_admin_options();
 
-	if ( $domain_options['g_analytics_enabled'] == 'true' ) {
-		add_action('wp_head', array($cmt_multiple_domains_plugin, 'output_ga'));
-	}
+    if ( $domain_options['g_analytics_enabled'] == 'true' ) {
+        add_action('wp_head', array($cmt_multiple_domains_plugin, 'output_ga'));
+    }
 }
 
 ?>
