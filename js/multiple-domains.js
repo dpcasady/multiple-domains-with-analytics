@@ -1,6 +1,6 @@
 jQuery(document).ready( function($) {
 
-    $('.getCurrent').on('click', function() {
+    $('.getCurrent').live('click', function() {
         var fullDomain = window.location.host,
             domainDiv = $(this).parent().parent(),
             rootDomain = fullDomain.split("www.")[1];
@@ -9,13 +9,13 @@ jQuery(document).ready( function($) {
         $(domainDiv).find(".siteurl").val('http://' + fullDomain);
     });
 
-    $('.clearAll').on('click', function() {
+    $('.clearAll').live('click', function() {
         var domainDiv = $(this).parent().parent();
         $(domainDiv).find("input[type='text']").val('');
         $(domainDiv).find("input.siteurl, input.home").val('http://');
     });
 
-    $('#cmt_g_analytics_enabled').on('click', function() {
+    $('#cmt_g_analytics_enabled').live('click', function() {
         var checkbox = this,
             analyticsClass = $('.ga');
             ignoreClass = $(".ignore");

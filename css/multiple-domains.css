@@ -41,9 +41,6 @@ td.pad {
     width:150px;
 }
 
-.delete-domain {
-    color: #a00;
-    text-decoration: none;
-    padding: 4px 0;
-    display: inline-block;
+.handle-index {
+    color: #999;
 }

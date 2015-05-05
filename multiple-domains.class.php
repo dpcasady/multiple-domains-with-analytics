@@ -45,6 +45,28 @@ if ( !class_exists( "CmtMultipleDomains" ) ) {
                 }
             } ?>
 
+            <?php if ( $this->options['universal_analytics'] == 'true' ) : ?>
+
+            <script type="text/javascript">
+                (function(i,s,o,g,r,a,m) {
+                    i['GoogleAnalyticsObject'] = r;
+                    i[r] = i[r] || function() {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
+                    a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+                    a.async = 1;
+                    a.src = g;
+                    m.parentNode.insertBefore(a,m)
+                })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+                ga('create', '<?php echo $ua_string;?>', 'auto');
+                ga('require', 'displayfeatures');
+                ga('send', 'pageview');
+            </script>
+
+            <?php else: ?>
+
             <script type="text/javascript">//<![CDATA[
                 var _gaq = _gaq || [];
                 _gaq.push(['_setAccount','<?php echo $ua_string;?>']);
@@ -56,7 +78,7 @@ if ( !class_exists( "CmtMultipleDomains" ) ) {
                 })();
             //]]></script>
 
-            <?php
+            <?php endif;
         }
 
 
@@ -141,11 +163,7 @@ if ( !class_exists( "CmtMultipleDomains" ) ) {
             add_meta_box( 'general-options', 'Google Analytics Options', array( $this, 'print_meta_box_options' ), $this->pagehook, 'advanced', 'core' );
 
             for ( $count = 1; $count <= $this->options['count']; $count++ ) {
-                $domain_name = '';
-                if ($this->options["domain_" . $count]) {
-                    $domain_name = ' (' . $this->options["domain_" . $count] . ')';
-                }
-                add_meta_box( 'domain-' . $count, 'Domain #' . $count . $domain_name, array( $this, 'print_meta_box_contents' ), $this->pagehook, 'normal', 'core', $count );
+                add_meta_box( 'domain-' . $count, '<span class="handle-index">' . $count . '</span>&nbsp; ' . $this->options["domain_" . $count], array( $this, 'print_meta_box_contents' ), $this->pagehook, 'normal', 'core', $count );
             }
         }
 
@@ -199,7 +217,9 @@ if ( !class_exists( "CmtMultipleDomains" ) ) {
                 if ( substr( $key, 0, 16 ) == 'ignore_logged_in' ) {
                     $cmt_options[$key] = $value;
                 }
-
+                if ( substr( $key, 0, 19 ) == 'universal_analytics' ) {
+                    $cmt_options[$key] = $value;
+                }
             }
 
             $cmt_options['count'] = $count;
@@ -213,7 +233,7 @@ if ( !class_exists( "CmtMultipleDomains" ) ) {
             <?php }
 
             if ( isset( $_GET['cmt_action'] ) && $_GET['cmt_action'] == "Blank" ) { ?>
-                <div id="message" class="updated fade"><p><strong><?php _e( 'Blank domain added. Edit details and save to complete.' ) ?></strong></p></div>
+                <div id="message" class="updated fade"><p><strong><?php _e( 'Blank domain added. Edit fields and save to complete.' ) ?></strong></p></div>
             <?php } ?>
 
             <div id="multiple-domains" class="wrap">
@@ -297,6 +317,9 @@ if ( !class_exists( "CmtMultipleDomains" ) ) {
                     if ( substr( $key, 0, 20 ) == 'cmt_ignore_logged_in' ) {
                         $new_options['ignore_logged_in'] = $value;
                     }
+                    if ( substr( $key, 0, 23 ) == 'cmt_universal_analytics' ) {
+                        $new_options['universal_analytics'] = $value;
+                    }
                 }
                 if ( get_option( 'cmt_dm_options' ) == '' ) {
                     add_option( 'cmt_dm_options', serialize( $new_options ) );
@@ -363,6 +386,18 @@ if ( !class_exists( "CmtMultipleDomains" ) ) {
                         <span class="note">Allows you to easily remove Google Analytics tracking for logged in users.</span>
                     </td>
                 </tr>
+                <tr valign="top" class="ignore<?php if ( isset( $options['g_analytics_enabled'] ) && $options['g_analytics_enabled'] == 'true' ) {echo ' visible';} else {echo ' invisible';} ?>">
+                    <td class="option-label">Universal Analytics:</td>
+                    <td class="pad">
+                        <label>
+                            <input type="hidden" id="cmt_universal_analytics" name="cmt_universal_analytics" value="false" />
+                            <input type="checkbox" id="cmt_universal_analytics" name="cmt_universal_analytics" value="true" <?php if ( isset( $options['universal_analytics'] ) ) { checked( 'true', $options['universal_analytics'] ); } ?> />
+                            Enabled
+                        </label>
+                        <br />
+                        <span class="note">Includes the analytics.js JavaScript snippet—a new way to measure how users interact with your website. It is similar to the previous tracking code, ga.js, but offers more flexibility for developers to customize their implementations.</span>
+                    </td>
+                </tr>
             </table>
         <?php }
 
@@ -370,32 +405,32 @@ if ( !class_exists( "CmtMultipleDomains" ) ) {
         public function print_meta_box_contents( $options, $count ) {
             $count = $count['args']; ?>
             <div class="domain">
-                <table class="optiontable">
-                    <tr>
-                        <th scope="row">Domain:</th>
-                        <td>www.<input type="text" id="cmt_domain_<?php echo $count; ?>" class="domain" name="cmt_domain_<?php echo $count; ?>" value="<?php print $options['domain_' . $count]; ?>" size="46" /></td>
-                    </tr><tr>
-                        <th scope="row">Weblog title:</th>
-                        <td><input type="text" id="cmt_blogname_<?php echo $count; ?>" class="blogname" name="cmt_blogname_<?php echo $count; ?>" value="<?php print $options['blogname_' . $count]; ?>" size="50" /></td>
-                    </tr><tr>
-                        <th scope="row">Tagline:</th>
-                        <td><input type="text" id="cmt_blogdescription_<?php echo $count; ?>" class="blogdescription" name="cmt_blogdescription_<?php echo $count; ?>" value="<?php print $options['blogdescription_' . $count]; ?>" size="50" /></td>
-                    </tr><tr>
-                        <th scope="row">Wordpress address (URL):</th>
-                        <td><input type="text" id="cmt_siteurl_<?php echo $count; ?>" class="siteurl" name="cmt_siteurl_<?php echo $count; ?>" value="<?php print $options['siteurl_' . $count]; ?>" size="50" /></td>
-                    </tr><tr>
-                        <th scope="row">Blog address (URL):</th>
-                        <td><input type="text" id="cmt_home_<?php echo $count; ?>" class="home" name="cmt_home_<?php echo $count; ?>" value="<?php print $options['home_' . $count]; ?>" size="50" /></td>
-                    </tr><tr class="ga<?php if ( isset( $options['g_analytics_enabled'] ) && $options['g_analytics_enabled'] == 'true' ) {echo ' visible';} else {echo ' invisible';} ?>">
-                        <th scope="row">Google Analytics Code:</th>
-                        <td><input type="text" id="cmt_analytics_<?php echo $count; ?>" class="analytics" name="cmt_analytics_<?php echo $count; ?>" value="<?php print $options['analytics_' . $count]; ?>" size="50" /></td>
-                    </tr>
-                </table>
-                <br /><br />
-                <span class="submit"><input type="button" class="button clearAll" value="Clear All Fields" /></span>
-                <span class="submit"><input type="button" class="button getCurrent" value="Get Current Domain" /></span>
-                <span class="submit"><a href="javascript:void(0)" class="delete-domain" onclick="void(document.getElementById( 'domain-<?php echo $count; ?>' ).parentNode.removeChild(document.getElementById( 'domain-<?php echo $count; ?>' )));" title="Delete Domain">Delete Domain</a></span>
-                <br /><br />
+            <table class="optiontable">
+                <tr>
+                    <th scope="row">Domain:</th>
+                    <td>www.<input type="text" id="cmt_domain_<?php echo $count; ?>" class="domain" name="cmt_domain_<?php echo $count; ?>" value="<?php print $options['domain_' . $count]; ?>" size="46" /></td>
+                </tr><tr>
+                    <th scope="row">Weblog title:</th>
+                    <td><input type="text" id="cmt_blogname_<?php echo $count; ?>" class="blogname" name="cmt_blogname_<?php echo $count; ?>" value="<?php print $options['blogname_' . $count]; ?>" size="50" /></td>
+                </tr><tr>
+                    <th scope="row">Tagline:</th>
+                    <td><input type="text" id="cmt_blogdescription_<?php echo $count; ?>" class="blogdescription" name="cmt_blogdescription_<?php echo $count; ?>" value="<?php print $options['blogdescription_' . $count]; ?>" size="50" /></td>
+                </tr><tr>
+                    <th scope="row">Wordpress address (URL):</th>
+                    <td><input type="text" id="cmt_siteurl_<?php echo $count; ?>" class="siteurl" name="cmt_siteurl_<?php echo $count; ?>" value="<?php print $options['siteurl_' . $count]; ?>" size="50" /></td>
+                </tr><tr>
+                    <th scope="row">Blog address (URL):</th>
+                    <td><input type="text" id="cmt_home_<?php echo $count; ?>" class="home" name="cmt_home_<?php echo $count; ?>" value="<?php print $options['home_' . $count]; ?>" size="50" /></td>
+                </tr><tr class="ga<?php if ( isset( $options['g_analytics_enabled'] ) && $options['g_analytics_enabled'] == 'true' ) {echo ' visible';} else {echo ' invisible';} ?>">
+                    <th scope="row">Google Analytics Code:</th>
+                    <td><input type="text" id="cmt_analytics_<?php echo $count; ?>" class="analytics" name="cmt_analytics_<?php echo $count; ?>" value="<?php print $options['analytics_' . $count]; ?>" size="50" /></td>
+                </tr>
+            </table>
+            <br /><br />
+            <span class="submit"><input type="button" class="button clearAll" value="Clear All Fields" /></span>
+            <span class="submit"><input type="button" class="button" onclick="void(document.getElementById( 'domain-<?php echo $count; ?>' ).parentNode.removeChild(document.getElementById( 'domain-<?php echo $count; ?>' )));" value="Delete Domain" /></span>
+            <span class="submit"><input type="button" class="button getCurrent" value="Get Current Domain" /></span>
+            <br /><br />
             </div>
         <?php }
     }

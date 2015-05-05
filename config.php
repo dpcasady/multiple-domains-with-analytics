@@ -8,6 +8,7 @@ Default db options
 
     $default_options['g_analytics_enabled'] = 'false';      // Analytics Enabled
     $default_options['ignore_logged_in'] = 'false';         // Ignore Logged In Users
+    $default_options['universal_analytics'] = 'false';      // Universal Analytics
 
 /* Fill in the detail here if defaults are required on acivation */
 

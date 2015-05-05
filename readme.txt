@@ -32,7 +32,8 @@ This section describes how to install the plugin and get it working.
 == Changelog ==
 
 = 1.1.3 =
-* Minor style fixes.
+* Various improvements.
+* Addition of universal analytics.
 
 = 1.1.2 =
 * Performance enhancements.
