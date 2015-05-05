@@ -3,7 +3,7 @@
 Plugin Name: Multiple Domains with Analytics
 Description: Allows Wordpress to be mirrored across multiple domain names. Includes optional analytics functionality.
 Author: Danny Casady
-Version: 1.1.2
+Version: 1.1.3
 License: GPL
 */
 
